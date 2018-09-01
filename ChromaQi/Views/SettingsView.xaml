@@ -1,0 +1,55 @@
+﻿<local:BaseView
+    x:Class="ChromaQi.Views.SettingsView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:ChromaQi.Views"
+    xmlns:vm="using:ChromaQi.ViewModels" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+    <local:BaseView.ViewModel>
+        <vm:SettingsViewModel />
+    </local:BaseView.ViewModel>
+
+    <Grid>
+        <Grid.Background>
+            <ImageBrush 
+                ImageSource="ms-appx:///Assets/Background.jpg" 
+                AlignmentX="Center" 
+                AlignmentY="Center" 
+                Stretch="UniformToFill"/>
+        </Grid.Background>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock
+                Text="Settings"
+                Foreground="White"
+                FontSize="24"
+                Margin="0,4" />
+            
+            <Grid 
+                MinHeight="200"
+                MinWidth="324"
+                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+                <ToggleSwitch 
+                    HorizontalAlignment="Center"
+                    Header="Test mode"
+                    IsOn="{Binding IsInTestMode, Mode=TwoWay}"
+                    Name="TestModeToggleSwitch" />
+            </Grid>
+        </StackPanel>
+        
+        <Button
+            Name="BackButton"
+            Click="BackButton_Click"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Background="Transparent"
+            Foreground="White"
+            BorderThickness="0"
+            Height="48"
+            Width="48">
+            <SymbolIcon Symbol="Back" />
+        </Button>
+    </Grid>
+</local:BaseView>
