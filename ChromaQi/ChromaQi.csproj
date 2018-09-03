@@ -103,6 +103,7 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Models\BackgroundImageItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ChromaPickerViewModel.cs" />
@@ -124,7 +125,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Background.jpg" />
-    <Content Include="Assets\Colors.jpg" />
+    <Content Include="Assets\BackgroundImages\Fire.jpg" />
+    <Content Include="Assets\BackgroundImages\Forest.jpg" />
+    <Content Include="Assets\BackgroundImages\Grass.jpg" />
+    <Content Include="Assets\BackgroundImages\Stars.jpg" />
+    <Content Include="Assets\BackgroundImages\Water.jpg" />
+    <Content Include="Assets\TestImage.jpg" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />

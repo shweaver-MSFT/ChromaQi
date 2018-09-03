@@ -1,17 +1,9 @@
 ﻿using ChromaQi.ViewModels;
 using System;
-using System.IO;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
-using Windows.Graphics.Imaging;
-using Windows.Storage;
+using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage.Streams;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 
 namespace ChromaQi.Views
 {
@@ -25,20 +17,44 @@ namespace ChromaQi.Views
             InitializeComponent();
         }
 
-        private void ChromaRangeTextBox_TextChanged(object sender, TextChangedEventArgs e)
+        private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                var vm = (ViewModel as ChromaPickerViewModel);
-                vm.ChromaRange = Convert.ToInt32(ChromaRangeTextBox.Text);
-            }
-            catch { }
+            Frame.GoBack();
         }
 
-        private void CloseFlyoutButton_Click(object sender, RoutedEventArgs e)
+        private void EyeDropButton_Click(object sender, RoutedEventArgs e)
         {
-            KeyColorPickerButton.Background = new SolidColorBrush(KeyColorPicker.Color);
-            KeyColorPickerButton.Flyout.Hide();
+
+        }
+
+        private bool GetShareContent(DataRequest request)
+        {
+            bool succeeded = false;
+
+            //if (this.imageFile != null)
+            //{
+            //    DataPackage requestData = request.Data;
+            //    requestData.Properties.Title = TitleInputBox.Text;
+            //    requestData.Properties.Description = DescriptionInputBox.Text; // The description is optional.
+            //    requestData.Properties.ContentSourceApplicationLink = ApplicationLink;
+
+            //    // It's recommended to use both SetBitmap and SetStorageItems for sharing a single image
+            //    // since the target app may only support one or the other.
+
+            //    List<IStorageItem> imageItems = new List<IStorageItem>();
+            //    imageItems.Add(this.imageFile);
+            //    requestData.SetStorageItems(imageItems);
+
+            //    RandomAccessStreamReference imageStreamRef = RandomAccessStreamReference.CreateFromFile(this.imageFile);
+            //    requestData.Properties.Thumbnail = imageStreamRef;
+            //    requestData.SetBitmap(imageStreamRef);
+            //    succeeded = true;
+            //}
+            //else
+            //{
+            //    request.FailWithDisplayText("Select an image you would like to share and try again.");
+            //}
+            return succeeded;
         }
     }
 }

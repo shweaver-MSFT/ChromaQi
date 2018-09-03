@@ -20,7 +20,7 @@
     </Style>
   </Page.Resources>
 
-    <Grid>
+    <Grid Padding="24">
         <Grid.Background>
             <ImageBrush 
                 ImageSource="ms-appx:///Assets/Background.jpg" 
@@ -29,10 +29,7 @@
                 Stretch="UniformToFill"/>
         </Grid.Background>
 
-        <Grid
-            HorizontalAlignment="Center"
-            VerticalAlignment="Stretch">
-
+        <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition />
                 <RowDefinition Height="Auto" />
@@ -44,7 +41,7 @@
                 VerticalAlignment="Bottom"
                 FontSize="28"
                 Margin="0,24">
-              <Run Foreground="White">Chroma</Run><Run Foreground="BlueViolet">Qi</Run>
+                <Run Foreground="White">Chroma</Run><Run Foreground="BlueViolet">Qi</Run>
             </TextBlock>
 
             <Rectangle 

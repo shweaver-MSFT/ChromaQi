@@ -19,37 +19,43 @@
                 AlignmentY="Center" 
                 Stretch="UniformToFill"/>
         </Grid.Background>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-            <TextBlock
-                Text="Settings"
-                Foreground="White"
-                FontSize="24"
-                Margin="0,4" />
-            
-            <Grid 
-                MinHeight="200"
-                MinWidth="324"
-                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+
+        <Grid
+            Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            BorderBrush="BlueViolet"
+            BorderThickness="1"
+            Padding="24">
+
+            <StackPanel 
+                Margin="12"
+                HorizontalAlignment="Stretch" 
+                VerticalAlignment="Top">
+                <TextBlock
+                    Text="Settings"
+                    Foreground="BlueViolet"
+                    FontSize="24" />
 
                 <ToggleSwitch 
-                    HorizontalAlignment="Center"
+                    Margin="0,12,0,0"
                     Header="Test mode"
                     IsOn="{Binding IsInTestMode, Mode=TwoWay}"
                     Name="TestModeToggleSwitch" />
-            </Grid>
-        </StackPanel>
-        
-        <Button
-            Name="BackButton"
-            Click="BackButton_Click"
-            HorizontalAlignment="Right"
-            VerticalAlignment="Bottom"
-            Background="Transparent"
-            Foreground="White"
-            BorderThickness="0"
-            Height="48"
-            Width="48">
-            <SymbolIcon Symbol="Back" />
-        </Button>
+            </StackPanel>
+
+            <Button
+                Name="BackButton"
+                Click="BackButton_Click"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Background="Transparent"
+                Foreground="White"
+                BorderThickness="0"
+                Height="48"
+                Width="48">
+                <SymbolIcon Symbol="Back" />
+            </Button>
+        </Grid>
     </Grid>
 </local:BaseView>

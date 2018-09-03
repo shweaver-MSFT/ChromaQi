@@ -26,15 +26,11 @@ namespace ChromaQi.Helpers
             }
         }
 
-        public static async Task WriteImageBytesAsync(byte[] imageBytes)
+        public static async Task WriteImageBytesAsync(StorageFile photo, byte[] imageBytes)
         {
-            using (InMemoryRandomAccessStream stream = new InMemoryRandomAccessStream())
+            using (Stream stream = await photo.OpenStreamForWriteAsync())
             {
-                using (DataWriter writer = new DataWriter(stream.GetOutputStreamAt(0)))
-                {
-                    writer.WriteBytes(imageBytes);
-                    await writer.StoreAsync();
-                }
+                await stream.WriteAsync(imageBytes, 0, imageBytes.Length);
             }
         }
 

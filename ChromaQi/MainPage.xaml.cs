@@ -26,7 +26,7 @@ namespace ChromaQi
             bool isInTestMode = await ApplicationData.Current.LocalSettings.ReadAsync<bool>("isInTestMode");
             if (isInTestMode)
             {
-                photo = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/Colors.jpg"));
+                photo = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/TestImage.jpg"));
             }
             else
             {

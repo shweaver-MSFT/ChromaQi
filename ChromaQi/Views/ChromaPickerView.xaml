@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:ChromaQi.Views"
     xmlns:vm="using:ChromaQi.ViewModels"
+    xmlns:m="using:ChromaQi.Models"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
@@ -21,110 +22,146 @@
                 Stretch="UniformToFill"/>
         </Grid.Background>
 
-        <StackPanel
+        <Grid.RowDefinitions>
+            <RowDefinition Height="4*" />
+            <RowDefinition Height="3*" />
+        </Grid.RowDefinitions>
+
+        <Grid Background="Black">
+            <Image 
+                Name="PhotoImage"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Source="{Binding PhotoImageSource}"
+                Stretch="Uniform" />
+        </Grid>
+
+        <Pivot
+            Grid.Row="1"
+            Padding="0,0,0,24"
+            Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
+            <Pivot.Items>
+                <PivotItem Header="Color">
+                    <Grid>
+                        <Viewbox>
+                            <ColorPicker 
+                                x:Name="KeyColorPicker"
+                                ColorSpectrumShape="Ring"
+                                IsColorPreviewVisible="False"
+                                IsColorChannelTextInputVisible="False"
+                                IsHexInputVisible="False"
+                                Color="{Binding KeyColor, Mode=TwoWay}" />
+
+                        </Viewbox>
+                        <Button
+                            Name="EyeDropButton"
+                            Grid.Row="1"
+                            Margin="12,0,0,0"
+                            Click="EyeDropButton_Click"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Bottom"
+                            Background="Transparent"
+                            Foreground="White"
+                            BorderThickness="0"
+                            Height="48"
+                            Width="48">
+                            <SymbolIcon Symbol="TouchPointer" />
+                        </Button>
+                    </Grid>
+                </PivotItem>
+                <PivotItem Header="Range">
+                    <Grid 
+                        VerticalAlignment="Center" 
+                        Margin="12,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            FontSize="48"
+                            Margin="0,0,0,24"
+                            Text="{Binding ChromaRange}" />
+
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <TextBlock 
+                                VerticalAlignment="Center"
+                                Text="{x:Bind ChromaRangeSlider.Minimum}" />
+                            <Slider 
+                                Name="ChromaRangeSlider"
+                                Grid.Column="1"
+                                HorizontalAlignment="Stretch"
+                                Minimum="0"
+                                Maximum="255"
+                                Value="{Binding ChromaRange, Mode=TwoWay}"
+                                StepFrequency="5"
+                                TickFrequency="5"
+                                TickPlacement="Outside"
+                                IsThumbToolTipEnabled="True"
+                                Margin="12,8,12,0" />
+                            <TextBlock
+                                Grid.Column="2"
+                                VerticalAlignment="Center"
+                                Text="{x:Bind ChromaRangeSlider.Maximum}" />
+                        </Grid>
+                    </Grid>
+                </PivotItem>
+                <PivotItem Header="Background">
+                    <ListView
+                        Name="BackgroundImageListView"
+                        SelectedIndex="{Binding CurrentBackgroundImage, Mode=TwoWay}"
+                        ItemsSource="{Binding BackgroundImages}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="m:BackgroundImageItem">
+                                <Grid>
+                                    <StackPanel>
+                                        <Image 
+                                            Stretch="UniformToFill"
+                                            Source="{Binding ImageUri}" />
+                                        <TextBlock Text="{Binding Title}" />
+                                    </StackPanel>
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </PivotItem>
+                <PivotItem Header="Save &amp; Share">
+                    <Grid>
+                        <StackPanel 
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal">
+                            <Button
+                                Name="SaveButton"
+                                Content="Save" />
+
+                            <Button
+                                Name="ShareButton"
+                                Margin="24,0,0,0"
+                                Content="Share" />
+                        </StackPanel>
+                    </Grid>
+                </PivotItem>
+            </Pivot.Items>
+        </Pivot>
+        <Button
+            Name="BackButton"
+            Grid.Row="1"
             Margin="24"
-            Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            BorderBrush="BlueViolet"
-            BorderThickness="0,0,1,1">
-
-            <Grid 
-                Background="Blue" 
-                Padding="20"
-                HorizontalAlignment="Stretch">
-                <Image 
-                    Name="PhotoImage"
-                    HorizontalAlignment="Center"
-                    Source="{Binding PhotoImageSource}"
-                    Height="{Binding PhotoHeight}"
-                    Width="{Binding PhotoWidth}"
-                    MinHeight="300"
-                    MinWidth="300"/>
-            </Grid>
-
-            <Grid Margin="0,12">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition Height="8" />
-                    <RowDefinition />
-                    <RowDefinition Height="8" />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition />
-                    <ColumnDefinition Width="8" />
-                    <ColumnDefinition />
-                </Grid.ColumnDefinitions>
-
-                <TextBlock 
-                    FontSize="18"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Text="Color" />
-
-                <Button 
-                    Name="KeyColorPickerButton"
-                    Grid.Column="2"
-                    BorderBrush="White"
-                    Padding="0"
-                    Height="24"
-                    Width="24" >
-                    <Button.Flyout>
-                        <Flyout>
-                            <Grid>
-                                <ColorPicker 
-                                    x:Name="KeyColorPicker"
-                                    ColorSpectrumShape="Ring"
-                                    IsColorPreviewVisible="False"
-                                    IsColorChannelTextInputVisible="False"
-                                    IsHexInputVisible="False"
-                                    Color="{Binding KeyColor, Mode=TwoWay}" />
-                                <Button
-                                    Name="CloseFlyoutButton"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Top"
-                                    Click="CloseFlyoutButton_Click">
-                                    <SymbolIcon Symbol="ClosePane" />
-                                </Button>
-                            </Grid>
-                        </Flyout>
-                    </Button.Flyout>
-                </Button>
-
-                <TextBlock 
-                    Grid.Row="2"
-                    FontSize="18"
-                    VerticalAlignment="Center"
-                    HorizontalAlignment="Right"
-                    Text="Range" />
-                <TextBox
-                    Name="ChromaRangeTextBox"
-                    Grid.Row="2"
-                    Grid.Column="2"
-                    HorizontalAlignment="Left"
-                    TextChanged="ChromaRangeTextBox_TextChanged"
-                    Text="{Binding ChromaRange, Mode=OneWay}" />
-
-                <!-- Background ListView code goes here -->
-                
-                <Button 
-                    Name="ApplyButton" 
-                    Content="Apply"
-                    Grid.Row="4"
-                    Command="{Binding ApplyChromaKeyCommand}"
-                    HorizontalAlignment="Right" />
-
-                <Button 
-                    Name="ResetButton"
-                    Grid.Row="4"
-                    Grid.Column="2"
-                    Command="{Binding ResetPhotoImageSourceCommand}">
-                    <SymbolIcon Symbol="Refresh" />
-                </Button>
-            </Grid>
-        </StackPanel>
+            Click="BackButton_Click"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Bottom"
+            Background="Transparent"
+            Foreground="White"
+            BorderThickness="0"
+            Height="48"
+            Width="48">
+            <SymbolIcon Symbol="Back" />
+        </Button>
     </Grid>
 </local:BaseView>
