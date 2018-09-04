@@ -20,7 +20,7 @@
     </Style>
   </Page.Resources>
 
-    <Grid Padding="24">
+    <Grid Padding="24" BorderThickness="1" BorderBrush="BlueViolet">
         <Grid.Background>
             <ImageBrush 
                 ImageSource="ms-appx:///Assets/Background.jpg" 

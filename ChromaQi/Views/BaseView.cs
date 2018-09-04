@@ -1,4 +1,5 @@
-﻿using ChromaQi.ViewModels;
+﻿using System;
+using ChromaQi.ViewModels;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -19,16 +20,16 @@ namespace ChromaQi.Views
             set { SetValue(ViewModelProperty, value); }
         }
 
-        private static void OnViewModelPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        private async static void OnViewModelPropertyChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var baseView = d as BaseView;
-            baseView.DataContext = e.NewValue;
+            await baseView.Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => baseView.DataContext = e.NewValue);
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
-            ViewModel?.LoadAsync(e.Parameter);
+            await Dispatcher.TryRunAsync(Windows.UI.Core.CoreDispatcherPriority.Normal, () => ViewModel?.LoadAsync(e.Parameter));
         }
 
         protected override async void OnNavigatingFrom(NavigatingCancelEventArgs e)

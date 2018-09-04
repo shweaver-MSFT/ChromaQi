@@ -1,7 +1,5 @@
 ﻿using ChromaQi.ViewModels;
-using System;
 using Windows.ApplicationModel.DataTransfer;
-using Windows.Storage.Streams;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -15,6 +13,17 @@ namespace ChromaQi.Views
         public ChromaPickerView()
         {
             InitializeComponent();
+
+            ChromaPickerPivot.SelectionChanged += ChromaPickerPivot_SelectionChanged;
+        }
+
+        private void ChromaPickerPivot_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (e.AddedItems.Contains(BackgroundPivotItem))
+            {
+                var vm = ViewModel as ChromaPickerViewModel;
+                BackgroundImageListView.ItemsSource = vm.BackgroundImages;
+            }
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)

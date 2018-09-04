@@ -18,21 +18,29 @@ namespace ChromaQi.ViewModels
     public class ChromaPickerViewModel : BaseViewModel
     {
         private const int DEFAULT_PHOTO_HEIGHT = 300;
-        private const int DEFAULT_PHOTO_WIDTH = 300;
+        private const int DEFAULT_PHOTO_WIDTH = 200;
 
         private StorageFile _photo;
+        private bool _processing = false;
 
-        public readonly int PhotoHeight = DEFAULT_PHOTO_HEIGHT;
-        public readonly int PhotoWidth = DEFAULT_PHOTO_WIDTH;
+        public int PhotoHeight => DEFAULT_PHOTO_HEIGHT;
+        public int PhotoWidth => DEFAULT_PHOTO_WIDTH;
 
-        public RelayCommand ApplyChromaKeyCommand { get; }
-        public RelayCommand ResetPhotoImageSourceCommand { get; }
+        public RelayCommand SaveImageCommand { get; }
+        public RelayCommand ShareImageCommand { get; }
 
         private WriteableBitmap _photoImageSource;
         public WriteableBitmap PhotoImageSource
         {
             get => _photoImageSource;
             set => Set(ref _photoImageSource, value);
+        }
+
+        private WriteableBitmap _backgroundImageSource;
+        public WriteableBitmap BackgroundImageSource
+        {
+            get => _backgroundImageSource;
+            set => Set(ref _backgroundImageSource, value);
         }
 
         private Color _keyColor;
@@ -49,6 +57,13 @@ namespace ChromaQi.ViewModels
             set => Set(ref _chromaRange, value);
         }
 
+        private int _selectedBackgroundImageIndex;
+        public int SelectedBackgroundImageIndex
+        {
+            get => _selectedBackgroundImageIndex;
+            set => Set(ref _selectedBackgroundImageIndex, value);
+        }
+
         private ObservableCollection<BackgroundImageItem> _backgroundImages;
         public ObservableCollection<BackgroundImageItem> BackgroundImages
         {
@@ -58,21 +73,43 @@ namespace ChromaQi.ViewModels
 
         public ChromaPickerViewModel()
         {
-            ApplyChromaKeyCommand = new RelayCommand(ApplyChromaKey);
-            ResetPhotoImageSourceCommand = new RelayCommand(ResetPhotoImageSource);
+            SaveImageCommand = new RelayCommand(SaveImage);
+            ShareImageCommand = new RelayCommand(ShareImage);
+            PhotoImageSource = new WriteableBitmap(PhotoWidth, PhotoHeight);
+            BackgroundImageSource = new WriteableBitmap(PhotoWidth, PhotoHeight);
+            SelectedBackgroundImageIndex = 0;
+            KeyColor = Colors.Green;
+            ChromaRange = 0;
 
-            _photoImageSource = new WriteableBitmap(PhotoWidth, PhotoHeight);
-
-            _keyColor = Colors.Green;
-            _chromaRange = 0;
+            BackgroundImages = new ObservableCollection<BackgroundImageItem>
+            {
+                new BackgroundImageItem("Fire", new Uri("ms-appx:///Assets/BackgroundImages/Fire.jpg")),
+                new BackgroundImageItem("Forest", new Uri("ms-appx:///Assets/BackgroundImages/Forest.jpg")),
+                new BackgroundImageItem("Grass", new Uri("ms-appx:///Assets/BackgroundImages/Grass.jpg")),
+                new BackgroundImageItem("Stars", new Uri("ms-appx:///Assets/BackgroundImages/Stars.jpg")),
+                new BackgroundImageItem("Water", new Uri("ms-appx:///Assets/BackgroundImages/Water.jpg"))
+            };
 
             PropertyChanged += OnPropertyChanged;
         }
 
-        private void OnPropertyChanged(object sender,PropertyChangedEventArgs e)
+        private void SaveImage()
+        {
+
+        }
+
+        private void ShareImage()
+        {
+
+        }
+
+        private async void OnPropertyChanged(object sender, PropertyChangedEventArgs e)
         {
             switch (e.PropertyName)
             {
+                case nameof(SelectedBackgroundImageIndex):
+                    await UpdateBackgroundImageSource();
+                    break;
                 case nameof(KeyColor):
                 case nameof(ChromaRange):
                     ApplyChromaKey();
@@ -99,11 +136,7 @@ namespace ChromaQi.ViewModels
 
             KeyColor = await ApplicationData.Current.LocalSettings.ReadAsync<Color>("keyColor");
             ChromaRange = await ApplicationData.Current.LocalSettings.ReadAsync<int>("chromaRange");
-
-            
         }
-
-        private bool _processing = false;
 
         private async void ApplyChromaKey()
         {
@@ -137,6 +170,28 @@ namespace ChromaQi.ViewModels
             }
 
             _photoImageSource.Invalidate();
+        }
+
+        private async Task UpdateBackgroundImageSource()
+        {
+            if (SelectedBackgroundImageIndex < 0 || SelectedBackgroundImageIndex >= BackgroundImages.Count) return;
+
+            var selectedImageUri = BackgroundImages[SelectedBackgroundImageIndex].ImageUri;
+            var backgroundImage = await StorageFile.GetFileFromApplicationUriAsync(selectedImageUri);
+
+            using (IRandomAccessStream fileStream = await backgroundImage.OpenAsync(FileAccessMode.Read))
+            {
+                try
+                {
+                    await BackgroundImageSource.SetSourceAsync(fileStream);
+                }
+                catch (TaskCanceledException)
+                {
+                    // The async action to set the WriteableBitmap's source may be canceled if the source is changed again while the action is in progress 
+                }
+            }
+
+            BackgroundImageSource.Invalidate();
         }
 
         private async Task ProcessPhotoImageSourceAsync()
@@ -191,12 +246,6 @@ namespace ChromaQi.ViewModels
                     }
 
                     System.Diagnostics.Debug.WriteLine($"Pixels Updated: {pixelUpdateCount}");
-
-                    // Open a stream to copy to the WriteableBitmap's pixel buffer 
-                    //using (Stream stream = _photoImageSource.PixelBuffer.AsStream())
-                    //{
-                    //    await stream.WriteAsync(pixels, 0, (int)pixels.AsBuffer().Capacity);
-                    //}
 
                     using (Stream stream = _photoImageSource.PixelBuffer.AsStream())
                     {
