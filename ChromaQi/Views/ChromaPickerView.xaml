@@ -66,12 +66,12 @@
                                         IsColorChannelTextInputVisible="False"
                                         IsHexInputVisible="False"
                                         Color="{Binding KeyColor, Mode=TwoWay}" />
-
                                 </Viewbox>
                                 <Button
                                     Name="EyeDropButton"
                                     Grid.Row="1"
                                     Margin="12,0,0,0"
+                                    Style="{StaticResource RoundButton}"
                                     Click="EyeDropButton_Click"
                                     HorizontalAlignment="Left"
                                     VerticalAlignment="Bottom"
@@ -139,8 +139,7 @@
                                     SelectedIndex="{Binding SelectedBackgroundImageIndex, Mode=TwoWay}">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
-                                            <ItemsStackPanel 
-                                                Orientation="Horizontal" />
+                                            <ItemsStackPanel Orientation="Horizontal" />
                                         </ItemsPanelTemplate>
                                     </ListView.ItemsPanel>
                                     <ListView.ItemTemplate>
@@ -191,6 +190,7 @@
                     Name="BackButton"
                     Grid.Row="1"
                     Margin="24"
+                    Style="{StaticResource RoundButton}"
                     Click="BackButton_Click"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Bottom"

@@ -52,5 +52,15 @@ namespace ChromaQi
         {
             Frame.Navigate(typeof(SettingsView));
         }
+
+        private void VideoButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void ImportButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

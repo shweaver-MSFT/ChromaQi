@@ -37,41 +37,68 @@
             </Grid.RowDefinitions>
         
             <TextBlock 
-                HorizontalAlignment="Center"
+                HorizontalAlignment="Left"
                 VerticalAlignment="Bottom"
-                FontSize="28"
-                Margin="0,24">
+                Grid.RowSpan="3"
+                FontSize="48">
                 <Run Foreground="White">Chroma</Run><Run Foreground="BlueViolet">Qi</Run>
             </TextBlock>
 
-            <Rectangle 
-                Width="104"
-                Height="104"
-                RadiusX="50"
-                RadiusY="50"
-                Grid.Row="1"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Stroke="White"
-                StrokeThickness="1" />
+            <StackPanel Grid.Row="1">
+                <Button 
+                    Name="CameraButton"
+                    Style="{StaticResource CameraButton}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="96"
+                    Width="96"
+                    Foreground="BlueViolet"
+                    Background="{ThemeResource SystemControlAltMediumLowAcrylicElementMediumBrush}"
+                    Click="CameraButton_Click">
+                    <StackPanel>
+                        <SymbolIcon Symbol="Camera" />
+                        <TextBlock Text="Camera" />
+                    </StackPanel>
+                </Button>
 
-            <Button 
-                Name="CameraButton"
-                Grid.Row="1"
-                Style="{StaticResource CameraButton}"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Height="96"
-                Width="96"
-                Foreground="BlueViolet"
-                Background="{ThemeResource SystemControlAltMediumLowAcrylicElementMediumBrush}"
-                Click="CameraButton_Click">
-                <SymbolIcon Symbol="Camera" />
-            </Button>
+                <Button 
+                    Name="VideoButton"
+                    Style="{StaticResource CameraButton}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="96"
+                    Width="96"
+                    Margin="0,12"
+                    Foreground="BlueViolet"
+                    Background="{ThemeResource SystemControlAltMediumLowAcrylicElementMediumBrush}"
+                    Click="VideoButton_Click">
+                    <StackPanel>
+                        <SymbolIcon Symbol="Video" />
+                        <TextBlock Text="Video" />
+                    </StackPanel>
+                </Button>
+                
+                <Button 
+                    Name="ImportButton"
+                    Style="{StaticResource CameraButton}"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Height="96"
+                    Width="96"
+                    Foreground="BlueViolet"
+                    Background="{ThemeResource SystemControlAltMediumLowAcrylicElementMediumBrush}"
+                    Click="ImportButton_Click">
+                    <StackPanel>
+                        <SymbolIcon Symbol="Import" />
+                        <TextBlock Text="Import" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
         </Grid>
 
         <Button
             Name="SettingsButton"
+            Style="{StaticResource RoundButton}"
             Click="SettingsButton_Click"
             HorizontalAlignment="Right"
             VerticalAlignment="Bottom"

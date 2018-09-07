@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.27729.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChromaQi", "ChromaQi\ChromaQi.csproj", "{B37587E0-C620-4929-AC4C-0D6B668D25CA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CustomCursors", "CustomCursors\CustomCursors.vcxproj", "{25150830-776A-4A93-8347-75D776AEEFEB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,6 +39,20 @@ Global
 		{B37587E0-C620-4929-AC4C-0D6B668D25CA}.Release|x86.ActiveCfg = Release|x86
 		{B37587E0-C620-4929-AC4C-0D6B668D25CA}.Release|x86.Build.0 = Release|x86
 		{B37587E0-C620-4929-AC4C-0D6B668D25CA}.Release|x86.Deploy.0 = Release|x86
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Debug|ARM.ActiveCfg = Debug|ARM
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Debug|ARM.Build.0 = Debug|ARM
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Debug|x64.ActiveCfg = Debug|x64
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Debug|x64.Build.0 = Debug|x64
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Debug|x86.ActiveCfg = Debug|Win32
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Debug|x86.Build.0 = Debug|Win32
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Release|Any CPU.ActiveCfg = Release|Win32
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Release|ARM.ActiveCfg = Release|ARM
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Release|ARM.Build.0 = Release|ARM
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Release|x64.ActiveCfg = Release|x64
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Release|x64.Build.0 = Release|x64
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Release|x86.ActiveCfg = Release|Win32
+		{25150830-776A-4A93-8347-75D776AEEFEB}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

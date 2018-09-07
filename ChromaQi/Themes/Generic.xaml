@@ -17,18 +17,26 @@
                 </VisualState>
                 <VisualState x:Name="PointerOver">
                   <Storyboard>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundRectangle"
+                        Storyboard.TargetProperty="Fill">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
+                    </ObjectAnimationUsingKeyFrames>
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
+                        Storyboard.TargetProperty="Foreground">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="BlueViolet" />
+                    </ObjectAnimationUsingKeyFrames>
                     <PointerUpThemeAnimation Storyboard.TargetName="RootGrid" />
                   </Storyboard>
                 </VisualState>
                 <VisualState x:Name="Pressed">
                   <Storyboard>
-                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                               Storyboard.TargetProperty="BorderBrush">
-                      <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightTransparentBrush}" />
+                    <ObjectAnimationUsingKeyFrames Storyboard.TargetName="BackgroundRectangle"
+                        Storyboard.TargetProperty="Fill">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="BlueViolet" />
                     </ObjectAnimationUsingKeyFrames>
                     <ObjectAnimationUsingKeyFrames Storyboard.TargetName="ContentPresenter"
-                               Storyboard.TargetProperty="Foreground">
-                      <DiscreteObjectKeyFrame KeyTime="0" Value="{ThemeResource SystemControlHighlightBaseHighBrush}" />
+                        Storyboard.TargetProperty="Foreground">
+                        <DiscreteObjectKeyFrame KeyTime="0" Value="White" />
                     </ObjectAnimationUsingKeyFrames>
                     <PointerDownThemeAnimation Storyboard.TargetName="RootGrid" />
                   </Storyboard>
@@ -37,11 +45,12 @@
             </VisualStateManager.VisualStateGroups>
 
             <Rectangle
-                    StrokeThickness="{TemplateBinding BorderThickness}"
-                    Stroke="{TemplateBinding BorderBrush}"
-                    RadiusX="{TemplateBinding Width}"
-                    RadiusY="{TemplateBinding Height}"
-                    Fill="{TemplateBinding Background}" />
+                Name="BackgroundRectangle"
+                StrokeThickness="{TemplateBinding BorderThickness}"
+                Stroke="{TemplateBinding BorderBrush}"
+                RadiusX="{TemplateBinding Width}"
+                RadiusY="{TemplateBinding Height}"
+                Fill="{TemplateBinding Background}" />
 
             <ContentPresenter x:Name="ContentPresenter"
                     Content="{TemplateBinding Content}"

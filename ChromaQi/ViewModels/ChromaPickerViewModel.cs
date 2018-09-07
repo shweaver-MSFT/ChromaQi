@@ -17,8 +17,8 @@ namespace ChromaQi.ViewModels
 {
     public class ChromaPickerViewModel : BaseViewModel
     {
-        private const int DEFAULT_PHOTO_HEIGHT = 300;
-        private const int DEFAULT_PHOTO_WIDTH = 200;
+        private const int DEFAULT_PHOTO_HEIGHT = 480;
+        private const int DEFAULT_PHOTO_WIDTH = 480;
 
         private StorageFile _photo;
         private bool _processing = false;
@@ -77,7 +77,7 @@ namespace ChromaQi.ViewModels
             ShareImageCommand = new RelayCommand(ShareImage);
             PhotoImageSource = new WriteableBitmap(PhotoWidth, PhotoHeight);
             BackgroundImageSource = new WriteableBitmap(PhotoWidth, PhotoHeight);
-            SelectedBackgroundImageIndex = 0;
+            SelectedBackgroundImageIndex = -1;
             KeyColor = Colors.Green;
             ChromaRange = 0;
 

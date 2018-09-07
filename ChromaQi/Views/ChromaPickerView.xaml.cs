@@ -1,5 +1,6 @@
 ﻿using ChromaQi.ViewModels;
 using Windows.ApplicationModel.DataTransfer;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -10,6 +11,9 @@ namespace ChromaQi.Views
     /// </summary>
     public sealed partial class ChromaPickerView : BaseView
     {
+        private bool _eyeDropperMode = false;
+        private CoreCursor _defaultCursor = null;
+
         public ChromaPickerView()
         {
             InitializeComponent();
@@ -33,7 +37,16 @@ namespace ChromaQi.Views
 
         private void EyeDropButton_Click(object sender, RoutedEventArgs e)
         {
-
+            _eyeDropperMode = !_eyeDropperMode;
+            if (_eyeDropperMode)
+            {
+                _defaultCursor = CoreWindow.GetForCurrentThread().PointerCursor;
+                CoreWindow.GetForCurrentThread().PointerCursor = new CoreCursor(CoreCursorType.Custom, 101);
+            }
+            else
+            {
+                CoreWindow.GetForCurrentThread().PointerCursor = _defaultCursor;
+            }
         }
 
         private bool GetShareContent(DataRequest request)
