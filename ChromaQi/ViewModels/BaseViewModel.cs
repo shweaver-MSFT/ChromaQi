@@ -5,8 +5,8 @@ namespace ChromaQi.ViewModels
 {
     public abstract class BaseViewModel : ViewModelBase, IViewModel
     {
-        public abstract Task LoadAsync(object data = null);
+        public virtual Task LoadAsync(object data = null) => Task.CompletedTask;
 
-        public abstract Task SaveAsync();
+        public virtual Task SaveAsync() => Task.CompletedTask;
     }
 }

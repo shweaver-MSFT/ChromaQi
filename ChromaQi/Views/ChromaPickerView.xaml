@@ -27,34 +27,43 @@
             <RowDefinition Height="3*" />
         </Grid.RowDefinitions>
 
-        <Grid Background="Black">
-            <Image 
-                MaxHeight="{Binding PhotoHeight}"
-                MaxWidth="{Binding PhotoWidth}"
-                HorizontalAlignment="Stretch" 
-                VerticalAlignment="Stretch"
-                Source="{Binding BackgroundImageSource}"
-                Stretch="UniformToFill" />
-            <Image 
-                Name="PhotoImage"
-                MaxHeight="{Binding PhotoHeight}"
-                MaxWidth="{Binding PhotoWidth}"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Source="{Binding PhotoImageSource}"
-                Stretch="UniformToFill" />
+        <Grid 
+            MinWidth="720"
+            Margin="0,4,0,0"
+            Padding="24" 
+            HorizontalAlignment="Center">
+            <Viewbox>
+                <Grid 
+                    Height="{Binding PhotoHeight}"
+                    Width="{Binding PhotoWidth}">
+                    <Image 
+                        HorizontalAlignment="Stretch" 
+                        VerticalAlignment="Stretch"
+                        Source="{Binding BackgroundImageSource}"
+                        Stretch="UniformToFill" />
+                    <Grid 
+                        Height="{Binding PhotoHeight}"
+                        Width="{Binding PhotoWidth}">
+                        <Image 
+                            Name="PhotoImage"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Source="{Binding PhotoImageSource}"
+                            Stretch="UniformToFill" />
+                    </Grid>
+                </Grid>
+            </Viewbox>
         </Grid>
 
         <Grid 
             Grid.Row="1"
             Background="{ThemeResource SystemControlChromeMediumAcrylicElementMediumBrush}">
-            <Grid 
-                MaxWidth="720">
+            <Grid MaxWidth="720">
                 <Pivot
                     Name="ChromaPickerPivot"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Stretch"
-                    Padding="0,0,0,24">
+                    Padding="0,12,0,24">
                     <Pivot.Items>
                         <PivotItem Header="Color">
                             <Grid>
@@ -131,11 +140,15 @@
                             Header="Background">
                             <Grid>
                                 <ListView
+                                    BorderBrush="BlueViolet"
+                                    BorderThickness="2,0"
                                     ScrollViewer.VerticalScrollBarVisibility="Disabled"
+                                    ScrollViewer.VerticalScrollMode="Disabled"
                                     ScrollViewer.HorizontalScrollBarVisibility="Auto"
                                     ScrollViewer.HorizontalScrollMode="Enabled"
                                     Name="BackgroundImageListView"
                                     Margin="0,0,0,48"
+                                    HorizontalAlignment="Stretch"
                                     SelectedIndex="{Binding SelectedBackgroundImageIndex, Mode=TwoWay}">
                                     <ListView.ItemsPanel>
                                         <ItemsPanelTemplate>
