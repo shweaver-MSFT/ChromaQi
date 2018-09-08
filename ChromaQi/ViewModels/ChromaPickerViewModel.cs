@@ -57,8 +57,8 @@ namespace ChromaQi.ViewModels
             set => Set(ref _chromaRange, value);
         }
 
-        private int _selectedBackgroundImageIndex;
-        public int SelectedBackgroundImageIndex
+        private int? _selectedBackgroundImageIndex;
+        public int? SelectedBackgroundImageIndex
         {
             get => _selectedBackgroundImageIndex;
             set => Set(ref _selectedBackgroundImageIndex, value);
@@ -77,7 +77,7 @@ namespace ChromaQi.ViewModels
             ShareImageCommand = new RelayCommand(ShareImage);
             PhotoImageSource = new WriteableBitmap(PhotoWidth, PhotoHeight);
             BackgroundImageSource = new WriteableBitmap(PhotoWidth, PhotoHeight);
-            SelectedBackgroundImageIndex = -1;
+            SelectedBackgroundImageIndex = null;
             KeyColor = Colors.Green;
             ChromaRange = 0;
 
@@ -174,9 +174,9 @@ namespace ChromaQi.ViewModels
 
         private async Task UpdateBackgroundImageSource()
         {
-            if (SelectedBackgroundImageIndex < 0 || SelectedBackgroundImageIndex >= BackgroundImages.Count) return;
+            if (!SelectedBackgroundImageIndex.HasValue || SelectedBackgroundImageIndex < 0 || SelectedBackgroundImageIndex >= BackgroundImages.Count) return;
 
-            var selectedImageUri = BackgroundImages[SelectedBackgroundImageIndex].ImageUri;
+            var selectedImageUri = BackgroundImages[SelectedBackgroundImageIndex.Value].ImageUri;
             var backgroundImage = await StorageFile.GetFileFromApplicationUriAsync(selectedImageUri);
 
             using (IRandomAccessStream fileStream = await backgroundImage.OpenAsync(FileAccessMode.Read))
